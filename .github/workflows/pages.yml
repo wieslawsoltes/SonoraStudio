@@ -1,0 +1,105 @@
+name: Validate and deploy Sonora Studio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Contents write is needed only for the one-time, checksum-verified source import.
+# It is removed together with the import steps after the full source is committed.
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Import verified source package
+        id: import
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d .source-import ]; then exit 0; fi
+          archive="$RUNNER_TEMP/sonora-source.tar.xz"
+          cat .source-import/part-* > "$archive"
+          printf '%s  %s\n' 'cf2c1d80cf715aba071bffae8224a2f17e6666b2590199bded759d713906680f' "$archive" | sha256sum --check --strict
+          python3 - "$archive" <<'PY'
+          import pathlib, sys, tarfile
+          with tarfile.open(sys.argv[1], 'r:xz') as archive:
+              for entry in archive.getmembers():
+                  path = pathlib.PurePosixPath(entry.name)
+                  if path.is_absolute() or '..' in path.parts or not entry.isfile() or path.parts[0] in {'.git', '.github'}:
+                      raise SystemExit(f'Unsafe archive member: {entry.name}')
+              archive.extractall('.', filter='data')
+          PY
+          rm -r .source-import
+          echo 'imported=true' >> "$GITHUB_OUTPUT"
+      - name: Run core tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tests/artifacts
+          npm test | tee tests/artifacts/core-test-report.txt
+      - name: Build standalone application
+        run: npm run build
+      - name: Install browser test runner
+        if: steps.import.outputs.imported == 'true'
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Verify real audio editing and regenerate browser artifacts
+        if: steps.import.outputs.imported == 'true'
+        run: npm run test:browser
+      - name: Commit complete verified source and build
+        if: steps.import.outputs.imported == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          import hashlib, pathlib
+          root = pathlib.Path('.')
+          files = sorted(p for p in root.rglob('*') if p.is_file() and p.name != 'MANIFEST.sha256' and not any(part in {'.git', '.github', 'site', '__pycache__', 'node_modules'} for part in p.parts))
+          pathlib.Path('MANIFEST.sha256').write_text(''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.as_posix()}\n' for p in files))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all -- . ':!.github'
+          git commit -m 'Import Sonora Studio v1.0.0 source, verified build, tests and documentation'
+          git push origin HEAD:main
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Stage deployable application
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          cp dist/sonora-studio.html site/index.html
+          cp dist/sonora-studio.html site/sonora-studio.html
+          touch site/.nojekyll
+          node --input-type=module -e "import fs from 'node:fs'; import cp from 'node:child_process'; const p=JSON.parse(fs.readFileSync('package.json','utf8'));fs.writeFileSync('site/build-info.json',JSON.stringify({name:p.name,version:p.version,commit:cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()},null,2));"
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
