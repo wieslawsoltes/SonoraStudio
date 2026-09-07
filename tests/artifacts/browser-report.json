@@ -1,0 +1,222 @@
+{
+  "tests": [
+    {
+      "name": "Demo session, real source analysis and waveform rendering",
+      "status": "pass",
+      "seconds": 0.004,
+      "detail": {
+        "ready": true,
+        "tracks": 6,
+        "clips": 16,
+        "assets": 6,
+        "peaks": 6428,
+        "backend": "Canvas 2D",
+        "secure": false,
+        "analyzed": true
+      }
+    },
+    {
+      "name": "Real Web Audio playback, sample metering and transport stop",
+      "status": "pass",
+      "seconds": 1.549,
+      "detail": {
+        "position": 1.3383333333333334,
+        "leftPeak": 0.0643056258559227,
+        "rightPeak": 0.06223314255475998,
+        "sampleRate": 48000
+      }
+    },
+    {
+      "name": "Lookahead playback loop wraps without stopping transport",
+      "status": "pass",
+      "seconds": 1.07,
+      "detail": {
+        "playing": true,
+        "position": 0.22633333333333333,
+        "sources": 2
+      }
+    },
+    {
+      "name": "Keyboard split plus transactional undo and redo",
+      "status": "pass",
+      "seconds": 0.385,
+      "detail": {
+        "count": 5,
+        "offset": 2,
+        "duration": 6.888888888888889
+      }
+    },
+    {
+      "name": "Keyboard clip duplication and undo",
+      "status": "pass",
+      "seconds": 0.117,
+      "detail": null
+    },
+    {
+      "name": "Pointer-driven clip move with snap bypass",
+      "status": "pass",
+      "seconds": 0.458,
+      "detail": {
+        "movedTo": 2.4355971896955504
+      }
+    },
+    {
+      "name": "Pointer trim and nondestructive fade handles",
+      "status": "pass",
+      "seconds": 0.825,
+      "detail": {
+        "trimmedDuration": 7.249544626593807,
+        "fadeIn": 1.413152224824356
+      }
+    },
+    {
+      "name": "Mute, stereo pan and coalesced slider history",
+      "status": "pass",
+      "seconds": 0.267,
+      "detail": {
+        "pan": 0.65,
+        "undoSteps": 1
+      }
+    },
+    {
+      "name": "Effects rack creates real processing nodes",
+      "status": "pass",
+      "seconds": 0.326,
+      "detail": null
+    },
+    {
+      "name": "Offline multitrack graph rendering with resampling and FX",
+      "status": "pass",
+      "seconds": 0.139,
+      "detail": {
+        "frames": 26460,
+        "sampleRate": 44100,
+        "channels": 2,
+        "peak": 0.2912009656429291,
+        "rms": 0.07869888245219953
+      }
+    },
+    {
+      "name": "Offline automation agrees across full-range and seeked rendering",
+      "status": "pass",
+      "seconds": 0.011,
+      "detail": {
+        "maximumSampleError": 2.9802322387695312e-08,
+        "framesCompared": 24000
+      }
+    },
+    {
+      "name": "Export dialog downloads a real 24-bit stereo WAV mixdown",
+      "status": "pass",
+      "seconds": 0.465,
+      "detail": {
+        "bytes": 132368,
+        "sampleRate": 44100,
+        "frames": 22050,
+        "bitDepth": 24,
+        "download": "Sonora verification mix.wav"
+      }
+    },
+    {
+      "name": "Waveform selection processing and immutable-source undo",
+      "status": "pass",
+      "seconds": 0.271,
+      "detail": {
+        "first": 0.06710229814052582,
+        "outside": 0.0199784766882658
+      }
+    },
+    {
+      "name": "Worker-generated spectrogram and actual FFT analysis",
+      "status": "pass",
+      "seconds": 0.666,
+      "detail": {
+        "width": 1200,
+        "height": 300
+      }
+    },
+    {
+      "name": "Time-frequency rectangle interaction",
+      "status": "pass",
+      "seconds": 0.119,
+      "detail": {
+        "start": 1.6666666666666667,
+        "end": 2.7777777777777777,
+        "low": 826.4833693867771,
+        "high": 2382.138026133972
+      }
+    },
+    {
+      "name": "Portable project JSON plus lossless embedded PCM round-trip",
+      "status": "pass",
+      "seconds": 1.106,
+      "detail": {
+        "characters": 29590629,
+        "assets": 6,
+        "tracks": 6,
+        "lossless": true
+      }
+    },
+    {
+      "name": "File input: real mono PCM WAV import without resampling source",
+      "status": "pass",
+      "seconds": 0.301,
+      "detail": {
+        "rate": 44100,
+        "channels": 1,
+        "length": 11025
+      }
+    },
+    {
+      "name": "Interactive gain automation add and remove",
+      "status": "pass",
+      "seconds": 0.176,
+      "detail": {
+        "pointsAfterAdd": 3
+      }
+    },
+    {
+      "name": "Compact responsive workspace without page overflow",
+      "status": "pass",
+      "seconds": 0.315,
+      "detail": {
+        "scroll": 760,
+        "width": 760,
+        "editor": 618
+      }
+    },
+    {
+      "name": "No uncaught browser JavaScript errors",
+      "status": "pass",
+      "seconds": 0.0,
+      "detail": 0
+    }
+  ],
+  "skipped": [
+    {
+      "name": "WebGPU adapter/driver execution",
+      "reason": "The in-memory document is not a secure origin. Canvas fallback was exercised; WGSL was not executed."
+    },
+    {
+      "name": "IndexedDB persistence",
+      "reason": "Opaque in-memory documents cannot access IndexedDB. Project serialization was tested separately."
+    },
+    {
+      "name": "Physical / fake microphone capture",
+      "reason": "Insecure document plus browser AudioCaptureAllowed=false policy. Capture permissions were not bypassed."
+    }
+  ],
+  "errors": [],
+  "console": [
+    {
+      "type": "warning",
+      "text": "Sonora local storage: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context."
+    }
+  ],
+  "environment": {
+    "chromium": "152.0.7977.0",
+    "url": "in-memory standalone document",
+    "backend": "Canvas 2D",
+    "secure": false
+  }
+}

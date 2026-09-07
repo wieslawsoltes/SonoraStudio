@@ -1,0 +1,266 @@
+
+> sonora-studio@1.0.0 test
+> node --test tests/core.test.mjs
+
+TAP version 13
+# Subtest: time formatting at second and subsecond scales
+ok 1 - time formatting at second and subsecond scales
+  ---
+  duration_ms: 1.311289
+  type: 'test'
+  ...
+# Subtest: decibel gain conversions are reversible
+ok 2 - decibel gain conversions are reversible
+  ---
+  duration_ms: 0.35486
+  type: 'test'
+  ...
+# Subtest: split retains precise source offsets at non-unit playback rate
+ok 3 - split retains precise source offsets at non-unit playback rate
+  ---
+  duration_ms: 2.786784
+  type: 'test'
+  ...
+# Subtest: split outside clip is a no-op
+ok 4 - split outside clip is a no-op
+  ---
+  duration_ms: 0.238043
+  type: 'test'
+  ...
+# Subtest: locked clips are not split
+ok 5 - locked clips are not split
+  ---
+  duration_ms: 0.163745
+  type: 'test'
+  ...
+# Subtest: left trim advances timeline and source together
+ok 6 - left trim advances timeline and source together
+  ---
+  duration_ms: 0.298956
+  type: 'test'
+  ...
+# Subtest: left extension clamps to available source
+ok 7 - left extension clamps to available source
+  ---
+  duration_ms: 0.278027
+  type: 'test'
+  ...
+# Subtest: right trim cannot exceed asset
+ok 8 - right trim cannot exceed asset
+  ---
+  duration_ms: 0.157282
+  type: 'test'
+  ...
+# Subtest: document commands support undo and redo without copying PCM
+ok 9 - document commands support undo and redo without copying PCM
+  ---
+  duration_ms: 1.447001
+  type: 'test'
+  ...
+# Subtest: invalid command restores original document atomically
+ok 10 - invalid command restores original document atomically
+  ---
+  duration_ms: 0.793726
+  type: 'test'
+  ...
+# Subtest: duplicate offsets a selection by its extent
+ok 11 - duplicate offsets a selection by its extent
+  ---
+  duration_ms: 0.419891
+  type: 'test'
+  ...
+# Subtest: ripple delete merges overlaps before shifting later clips
+ok 12 - ripple delete merges overlaps before shifting later clips
+  ---
+  duration_ms: 0.327869
+  type: 'test'
+  ...
+# Subtest: validation rejects duplicate IDs and unknown project format
+ok 13 - validation rejects duplicate IDs and unknown project format
+  ---
+  duration_ms: 0.926654
+  type: 'test'
+  ...
+# Subtest: validation clamps non-finite or malicious audio parameters
+ok 14 - validation clamps non-finite or malicious audio parameters
+  ---
+  duration_ms: 0.152183
+  type: 'test'
+  ...
+# Subtest: fade envelope endpoints and plateaus
+ok 15 - fade envelope endpoints and plateaus
+  ---
+  duration_ms: 0.169255
+  type: 'test'
+  ...
+# Subtest: automation interpolates and holds endpoints
+ok 16 - automation interpolates and holds endpoints
+  ---
+  duration_ms: 0.152704
+  type: 'test'
+  ...
+# Subtest: peak pyramid preserves extrema and final partial blocks
+ok 17 - peak pyramid preserves extrema and final partial blocks
+  ---
+  duration_ms: 0.3494
+  type: 'test'
+  ...
+# Subtest: statistics calculate sample peak RMS DC and clipping
+ok 18 - statistics calculate sample peak RMS DC and clipping
+  ---
+  duration_ms: 0.522963
+  type: 'test'
+  ...
+# Subtest: FFT detects an exact-bin sinusoid and inverse recovers it
+ok 19 - FFT detects an exact-bin sinusoid and inverse recovers it
+  ---
+  duration_ms: 11.108844
+  type: 'test'
+  ...
+# Subtest: FFT rejects invalid sizes
+ok 20 - FFT rejects invalid sizes
+  ---
+  duration_ms: 0.143497
+  type: 'test'
+  ...
+# Subtest: normalize affects only the selected samples
+ok 21 - normalize affects only the selected samples
+  ---
+  duration_ms: 0.324363
+  type: 'test'
+  ...
+# Subtest: reverse and silence operate on source copies
+ok 22 - reverse and silence operate on source copies
+  ---
+  duration_ms: 0.762919
+  type: 'test'
+  ...
+# Subtest: linear fade endpoints and DC removal
+ok 23 - linear fade endpoints and DC removal
+  ---
+  duration_ms: 0.274411
+  type: 'test'
+  ...
+# Subtest: RMS matching uses headroom protection
+ok 24 - RMS matching uses headroom protection
+  ---
+  duration_ms: 0.157733
+  type: 'test'
+  ...
+# Subtest: WAV 16-bit round-trip preserves stereo and sample rate
+ok 25 - WAV 16-bit round-trip preserves stereo and sample rate
+  ---
+  duration_ms: 0.545765
+  type: 'test'
+  ...
+# Subtest: WAV 24-bit round-trip preserves stereo and sample rate
+ok 26 - WAV 24-bit round-trip preserves stereo and sample rate
+  ---
+  duration_ms: 0.393282
+  type: 'test'
+  ...
+# Subtest: WAV 32-bit round-trip preserves stereo and sample rate
+ok 27 - WAV 32-bit round-trip preserves stereo and sample rate
+  ---
+  duration_ms: 0.145311
+  type: 'test'
+  ...
+# Subtest: float WAV preserves values above full scale
+ok 28 - float WAV preserves values above full scale
+  ---
+  duration_ms: 0.136194
+  type: 'test'
+  ...
+# Subtest: integer WAV clips full scale without wrapping
+ok 29 - integer WAV clips full scale without wrapping
+  ---
+  duration_ms: 0.13456
+  type: 'test'
+  ...
+# Subtest: WAV reader rejects malformed and truncated chunks
+ok 30 - WAV reader rejects malformed and truncated chunks
+  ---
+  duration_ms: 0.277376
+  type: 'test'
+  ...
+# Subtest: spectral processor attenuates targeted tones while retaining other bands
+ok 31 - spectral processor attenuates targeted tones while retaining other bands
+  ---
+  duration_ms: 49.002924
+  type: 'test'
+  ...
+# Subtest: zero dB spectral processing reconstructs the original through overlap-add
+ok 32 - zero dB spectral processing reconstructs the original through overlap-add
+  ---
+  duration_ms: 5.701326
+  type: 'test'
+  ...
+# Subtest: spectrogram and spectrum derive finite values from real input
+ok 33 - spectrogram and spectrum derive finite values from real input
+  ---
+  duration_ms: 6.830526
+  type: 'test'
+  ...
+# Subtest: time formatting carries rounded seconds into minutes
+ok 34 - time formatting carries rounded seconds into minutes
+  ---
+  duration_ms: 0.120545
+  type: 'test'
+  ...
+# Subtest: unchanged selection does not replace interactive DOM via notifications
+ok 35 - unchanged selection does not replace interactive DOM via notifications
+  ---
+  duration_ms: 0.261626
+  type: 'test'
+  ...
+# Subtest: mono 24-bit WAV includes word padding outside data chunk size
+ok 36 - mono 24-bit WAV includes word padding outside data chunk size
+  ---
+  duration_ms: 0.174345
+  type: 'test'
+  ...
+# Subtest: float WAV carries extended fmt and exact fact sample count
+ok 37 - float WAV carries extended fmt and exact fact sample count
+  ---
+  duration_ms: 0.156111
+  type: 'test'
+  ...
+# Subtest: WAV writer rejects invalid sample rates
+ok 38 - WAV writer rejects invalid sample rates
+  ---
+  duration_ms: 0.160559
+  type: 'test'
+  ...
+# Subtest: PCM AudioWorklet remains inactive and never monitors input
+ok 39 - PCM AudioWorklet remains inactive and never monitors input
+  ---
+  duration_ms: 1.453303
+  type: 'test'
+  ...
+# Subtest: PCM AudioWorklet starts on the requested sample frame and mirrors mono
+ok 40 - PCM AudioWorklet starts on the requested sample frame and mirrors mono
+  ---
+  duration_ms: 1.152083
+  type: 'test'
+  ...
+# Subtest: PCM AudioWorklet transfers 4096-frame chunks and flushes stereo remainder
+ok 41 - PCM AudioWorklet transfers 4096-frame chunks and flushes stereo remainder
+  ---
+  duration_ms: 3.163405
+  type: 'test'
+  ...
+# Subtest: PCM AudioWorklet ignores samples after flush
+ok 42 - PCM AudioWorklet ignores samples after flush
+  ---
+  duration_ms: 0.792654
+  type: 'test'
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 205.2396

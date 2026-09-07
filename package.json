@@ -1,0 +1,17 @@
+{
+  "name": "sonora-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dependency-free browser audio workstation with WebGPU waveforms and Web Audio DSP",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/core.test.mjs",
+    "test:browser": "python tests/browser.py",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
